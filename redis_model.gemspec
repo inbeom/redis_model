@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = RedisModel::VERSION
   spec.authors       = ['Inbeom Hwang']
   spec.email         = ['hwanginbeom@gmail.com']
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = ''
+  spec.summary       = %q{Interfaces for Redis values.}
+  spec.description   = %q{RedisModel provides various types of interfaces to handle values on Redis}
+  spec.homepage      = 'http://gitlab.ultracaption.net/inbeom/redis_model'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files`.split($/)
