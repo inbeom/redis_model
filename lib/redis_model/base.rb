@@ -39,6 +39,11 @@ module RedisModel
       @@connection ||= Redis.new(url: RedisModel::Configurations.instance.redis_url)
     end
 
+    # Public: Sets custom key label for the object.
+    #
+    # block - Required Block which returns custom key for given object.
+    #
+    # Returns nothing.
     def self.custom_key_label(&block)
       redis_model_schema.custom_key_label(&block)
     end
