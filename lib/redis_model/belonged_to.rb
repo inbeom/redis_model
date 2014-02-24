@@ -17,7 +17,9 @@ module RedisModel
       @parent_id = attrs[:parent_id]
     end
 
-    # Internal: 
+    # Internal: ID of parent model.
+    #
+    # Returns ID of parent model.
     def parent_id
       @parent_id || @parent.id
     end
