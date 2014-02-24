@@ -7,6 +7,7 @@ require 'active_support/inflector'
 require "redis_model/version"
 require 'redis_model/configurations'
 require 'redis_model/types/base'
+require 'redis_model/types/base_value'
 require 'redis_model/types/string'
 require 'redis_model/types/counter'
 require 'redis_model/types/list'
