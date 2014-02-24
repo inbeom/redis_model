@@ -2,7 +2,7 @@ module RedisModel
   module Types
     # Internal: Methods needed for timestamp type.
     module Timestamp
-      include RedisModel::Types::String
+      include RedisModel::Types::BaseValue
 
       # Public: Reads value on Redis and converts it to timestamp.
       #

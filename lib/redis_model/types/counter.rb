@@ -2,7 +2,7 @@ module RedisModel
   module Types
     # Internal: Methods needed for counter data type.
     module Counter
-      include RedisModel::Types::String
+      include RedisModel::Types::BaseValue
 
       # Public: Atomically increments counter value using Redis command INCR or
       # INCRBY.

@@ -2,7 +2,7 @@ module RedisModel
   module Types
     # Internal: Methods needed for Integer type.
     module Integer
-      include RedisModel::Types::String
+      include RedisModel::Types::BaseValue
 
       # Public: Retrieves value stored in Redis key as Integer.
       #

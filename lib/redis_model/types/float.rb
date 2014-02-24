@@ -2,7 +2,7 @@ module RedisModel
   module Types
     # Internal: Methods needed for Float data type.
     module Float
-      include RedisModel::Types::String
+      include RedisModel::Types::BaseValue
 
       # Public: Retrieves Float value stored in the key.
       #
