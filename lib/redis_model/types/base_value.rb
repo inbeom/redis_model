@@ -16,10 +16,10 @@ module RedisModel
       # value - Value to set.
       #
       # Returns String contained in Redis. nil if it does not exist.
-      def set(value)
+      def set(value, options = {})
         @cached_value = nil
 
-        RedisModel::Base.connection.set(key_label, value)
+        RedisModel::Base.connection.set(key_label, value, options)
       end
     end
   end
