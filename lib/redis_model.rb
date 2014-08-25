@@ -3,6 +3,7 @@ require 'time'
 
 require 'redis'
 require 'active_support/inflector'
+require 'active_support/time'
 
 require "redis_model/version"
 require 'redis_model/configurations'
