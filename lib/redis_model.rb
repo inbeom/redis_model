@@ -35,4 +35,8 @@ module RedisModel
       yield configurations if block_given?
     end
   end
+
+  module Helpers
+    autoload :SortedSetPaginator, 'redis_model/helpers/sorted_set_paginator'
+  end
 end

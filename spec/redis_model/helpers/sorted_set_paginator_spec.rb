@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'redis_model/helpers/sorted_set_paginator'
 
 describe RedisModel::Helpers::SortedSetPaginator do
   let(:klass) { dynamic_class(RedisModel::Base) }
