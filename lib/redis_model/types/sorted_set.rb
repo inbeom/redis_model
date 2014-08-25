@@ -179,6 +179,17 @@ module RedisModel
 
         result
       end
+
+      # Public: Obtain rank-sampled keys from the sorted set.
+      #
+      # count - Number of keys to sample
+      #
+      # Returns Array of sampled keys.
+      def sample(count = 1)
+        (0...count).to_a.sample(count).map do |sampled_rank|
+          connection.zrevrange(key_label, sampled_rank, sampled_rank)
+        end.compact.map(&:first)
+      end
     end
   end
 end

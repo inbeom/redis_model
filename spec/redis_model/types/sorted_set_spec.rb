@@ -300,4 +300,11 @@ describe RedisModel::Types::SortedSet do
       end
     end
   end
+
+  describe '#sample' do
+    before { populate }
+
+    it { expect(members.keys.map(&:to_s)).to be_include(object.sample.first) }
+    it { expect(members.keys.map(&:to_s).sort).to eq(object.sample(3).sort) }
+  end
 end
