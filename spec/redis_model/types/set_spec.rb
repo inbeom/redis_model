@@ -57,6 +57,6 @@ describe RedisModel::Types::Set do
 
     before { elements.each { |element| RedisModel::Base.connection.sadd(object.key_label, element) } }
 
-    it { expect(object.pick(5).all? { |e| elements.include?(e) }).to be_true }
+    it { expect(object.pick(5).all? { |e| elements.include?(e) }).to eq(true) }
   end
 end
