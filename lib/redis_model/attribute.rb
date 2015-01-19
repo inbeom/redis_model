@@ -119,6 +119,21 @@ module RedisModel
 
     def self.included(klass)
       klass.extend ClassMethods
+
+      if klass.respond_to?(:after_destroy)
+        klass.after_destroy :clear_redis_model_attributes
+      end
+    end
+
+    # Public: Clears attributes defined by RedisModel.
+    #
+    # Returns nothing.
+    def clear_redis_model_attributes
+      RedisModel::Schema.collection.each do |klass, _|
+        if klass < RedisModel::BelongedTo && Object.const_get(klass.to_s.deconstantize) >= self.class
+          self.send(klass.to_s.demodulize.underscore).del
+        end
+      end
     end
   end
 end
