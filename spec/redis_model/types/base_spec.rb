@@ -8,7 +8,7 @@ describe RedisModel::Types::Base do
   before { klass.send(:include, RedisModel::Types::Base) }
 
   describe '#exists?' do
-    it { expect(object.exists?).to be_false }
+    it { expect(object.exists?).to eq(false) }
     it { expect { RedisModel::Base.connection.set(object.key_label, 'value') }.to change { object.exists? } }
   end
 

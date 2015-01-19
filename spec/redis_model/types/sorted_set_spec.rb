@@ -34,14 +34,14 @@ describe RedisModel::Types::SortedSet do
 
   describe '#include?' do
     context 'when sorted set does not exist' do
-      it { expect(object.include?(members.keys.first)).to be_false }
+      it { expect(object.include?(members.keys.first)).to eq(false) }
     end
 
     context 'when sorted set has been populated before' do
       before { populate }
 
-      it { expect(object.include?(members.keys.first)).to be_true }
-      it { expect(object.include?('unknown key')).to be_false }
+      it { expect(object.include?(members.keys.first)).to eq(true) }
+      it { expect(object.include?('unknown key')).to eq(false) }
     end
   end
 
@@ -234,7 +234,7 @@ describe RedisModel::Types::SortedSet do
             key_label = intersected.key_label
           end
 
-          expect(RedisModel::Base.connection.exists(key_label)).to be_false
+          expect(RedisModel::Base.connection.exists(key_label)).to eq(false)
         end
 
         context 'when seed is given' do
@@ -295,7 +295,7 @@ describe RedisModel::Types::SortedSet do
             key_label = intersected.key_label
           end
 
-          expect(RedisModel::Base.connection.exists(key_label)).to be_false
+          expect(RedisModel::Base.connection.exists(key_label)).to eq(false)
         end
       end
     end
