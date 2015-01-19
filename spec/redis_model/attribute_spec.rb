@@ -9,6 +9,10 @@ class TestModel
   end
 end
 
+class TestActiveRecordModel < ActiveRecord::Base
+  self.table_name = 'ar_model'
+end
+
 describe RedisModel::Attribute do
   let(:parent_klass) { dynamic_class(TestModel) }
 
@@ -73,5 +77,47 @@ describe RedisModel::Attribute do
     it { expect(definition_helper).to respond_to(:set) }
     it { expect(definition_helper).to respond_to(:sorted_set) }
     it { expect { definition_helper.counter :my_counter }.to change { parent_klass.new('test').methods } }
+  end
+
+  describe '#clear_redis_modeL_attributes' do
+    let(:parent_klass) { dynamic_class(TestModel) }
+    let(:attribute_name) { :my_counter }
+    let(:attribute_type) { :counter }
+    let(:test_id) { 'test' }
+    let(:object) { parent_klass.new(test_id) }
+    let(:redis_model_attribute) { object.send(attribute_name) }
+
+    context 'when current class defines the attribute' do
+      before { parent_klass.redis_model_attribute attribute_name, attribute_type }
+      before { redis_model_attribute.set(1) }
+
+      it { expect { object.clear_redis_model_attributes }.to change { RedisModel::Base.connection.get(redis_model_attribute.key_label) }.to(nil) }
+    end
+
+    context 'when parent class defines the attribute' do
+      let(:current_klass) { dynamic_class(parent_klass) }
+      let(:object) { current_klass.new(test_id) }
+
+      before { parent_klass.redis_model_attribute attribute_name, attribute_type }
+      before { redis_model_attribute.set(1) }
+
+      it { expect { object.clear_redis_model_attributes }.to change { RedisModel::Base.connection.get(redis_model_attribute.key_label) }.to(nil) }
+    end
+
+    context 'when parent class is activerecord model' do
+      let(:parent_klass) { dynamic_class(TestActiveRecordModel) }
+      let(:object) { parent_klass.create }
+
+      before { parent_klass.redis_model_attribute attribute_name, attribute_type }
+      before { redis_model_attribute.set(1) }
+
+      context 'when it is cleared explicitly' do
+        it { expect { object.clear_redis_model_attributes }.to change { RedisModel::Base.connection.get(redis_model_attribute.key_label) }.to(nil) }
+      end
+
+      context 'when it is invoked via activerecord callback' do
+        it { expect { object.destroy }.to change { RedisModel::Base.connection.get(redis_model_attribute.key_label) }.to(nil) }
+      end
+    end
   end
 end
